@@ -10,7 +10,7 @@ const Navigation = () => {
       expand='sm'
       className='justify-content-between'>
       <LinkContainer to='/'>
-        <Navbar.Brand>BizCard</Navbar.Brand>
+        <Navbar.Brand>BCard</Navbar.Brand>
       </LinkContainer>
       <Nav className='d-flex flex-row flex-nowrap'>
         <LinkContainer to='/all'>
