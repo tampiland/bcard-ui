@@ -29,16 +29,26 @@ const BusinessCard = (props: BusinessCardProps) => {
       style={{ width: "20em", height: "10em" }}>
       <Container className='text-left h-100'>
         <Row className='h-100'>
-          <Col xs={8} className='d-flex flex-column justify-content-end'>
+          <Col
+            xs={"auto"}
+            className='d-flex flex-column justify-content-end'
+            style={{ width: "13em" }}>
             <h5>{`${card.name} ${card.surName}`}</h5>
             <span className='small'>{`Phone: ${card.telephone}`}</span>
             <span className='small mb-2'>{`Email: ${card.email}`}</span>
           </Col>
-          <Col xs={4} className='p-0'>
+          <Col
+            className='p-0 h-100'
+            style={{ width: "6em", overflow: "hidden" }}>
             <img
               src={imageUrl || defaultImage}
               alt={`${card.name} ${card.surName}`}
               className='img-thumbnail'
+              style={{
+                objectFit: "cover",
+                height: "67%",
+                width: "100%",
+              }}
             />
           </Col>
         </Row>
