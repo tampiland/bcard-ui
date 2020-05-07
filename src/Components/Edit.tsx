@@ -4,6 +4,7 @@ import { Alert, Container, Row, Col } from "react-bootstrap";
 import { Card, fetchById, modify, deleteById, blankCard } from "../API/cardApi";
 import CardForm from "./CardForm";
 import BusinessCard from "./BusinessCard";
+import DeleteModal from "./DeleteModal";
 
 interface MatchParams {
   id: string;
@@ -14,6 +15,7 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
   const [error, setError] = useState<string>("");
   const [editedId, setEditedId] = useState<string | undefined>(undefined);
   const [deleted, setDeleted] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (match.params.id) getCard();
@@ -89,6 +91,14 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
 
   return (
     <>
+      <DeleteModal
+        show={showModal}
+        onConfirm={() => {
+          setShowModal(false);
+          deleteCard();
+        }}
+        onDismiss={() => setShowModal(false)}
+      />
       {deleted && (
         <Alert variant='warning'>
           Card successfully deleted.{" "}
@@ -118,7 +128,7 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
               handleChange={handleChange}
               handleImage={handleImage}
               onSubmit={handleSubmit}
-              onDelete={deleteCard}
+              onDelete={() => setShowModal(true)}
               card={card}
               disabled={!!error || deleted}
             />
