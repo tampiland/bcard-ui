@@ -9,7 +9,7 @@ interface DeleteModalProps {
 
 const DeleteModal = (props: DeleteModalProps) => {
   return (
-    <Modal show={props.show} size='sm' onHide={props.onDismiss} centered>
+    <Modal show={props.show} onHide={props.onDismiss} centered>
       <Modal.Header closeButton>
         <Modal.Title>Delete card?</Modal.Title>
       </Modal.Header>
