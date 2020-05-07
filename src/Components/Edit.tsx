@@ -124,16 +124,20 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
             />
           </Col>
         </Row>
-        <Row className='mt-3'>
-          <Col>
-            <h5>Preview:</h5>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <BusinessCard card={card} />
-          </Col>
-        </Row>
+        {!deleted && !error && (
+          <>
+            <Row className='mt-3'>
+              <Col>
+                <h5>Preview:</h5>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <BusinessCard card={card} />
+              </Col>
+            </Row>
+          </>
+        )}
       </Container>
     </>
   );
