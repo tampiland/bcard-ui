@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { Alert, Container, Row, Col } from "react-bootstrap";
-import {
-  Card,
-  fetchById,
-  modify,
-  deleteById,
-  getEditable,
-  blankCard,
-} from "../API/cardApi";
+import { Card, fetchById, modify, deleteById, blankCard } from "../API/cardApi";
 import CardForm from "./CardForm";
-//import BusinessCard from "./BusinessCard";
+import BusinessCard from "./BusinessCard";
 
 interface MatchParams {
   id: string;
@@ -59,13 +52,33 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
       );
   };
 
+  const handleImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      try {
+        const fileArray = await file.arrayBuffer();
+        setCard({
+          ...card,
+          ...{
+            image: {
+              data: Buffer.from(fileArray).toJSON(),
+              contentType: file.type,
+            },
+            imageName: file.name,
+          },
+        });
+      } catch (err) {
+        console.error(err.message);
+        setError(err.message);
+      }
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!card.name) {
-      setError("First name required.");
-    } else if (card._id) {
+    if (card._id) {
       try {
-        const modifiedCard = await modify(card._id, getEditable(card));
+        const modifiedCard = await modify(card._id, card);
         setEditedId(modifiedCard._id);
       } catch (err) {
         setError(err.message);
@@ -102,6 +115,7 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
           <Col xs={12} sm={10} md={8} lg={6} className='gray p-2'>
             <CardForm
               handleChange={handleChange}
+              handleImage={handleImage}
               onSubmit={handleSubmit}
               onDelete={deleteCard}
               card={card}
@@ -109,7 +123,7 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
             />
           </Col>
         </Row>
-        {/* <Row className='mt-3'>
+        <Row className='mt-3'>
           <Col>
             <h5>Preview:</h5>
           </Col>
@@ -118,8 +132,7 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
           <Col>
             <BusinessCard card={card} />
           </Col>
-        </Row> */}
-        {/*editedId && <Redirect to={`/all/`} />*/}
+        </Row>
       </Container>
     </>
   );

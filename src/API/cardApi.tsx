@@ -4,6 +4,8 @@ export interface Card {
   surName: string;
   telephone: string;
   email: string;
+  image?: { data: { data: Array<number>; type: string }; contentType: string };
+  imageName?: string;
 }
 
 export const blankCard: Card = {
@@ -13,12 +15,13 @@ export const blankCard: Card = {
   email: "",
 };
 
-export const getEditable = (card: Partial<Card>): Partial<Card> => {
-  return (({ name, surName, telephone, email }) => ({
+const getEditable = (card: Partial<Card>): Partial<Card> => {
+  return (({ name, surName, telephone, email, image }) => ({
     name,
     surName,
     telephone,
     email,
+    image,
   }))({ ...blankCard, ...card });
 };
 
@@ -58,7 +61,7 @@ export const createNew = async (card: Partial<Card>): Promise<Card> => {
     return await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(card),
+      body: JSON.stringify(getEditable(card)),
     }).then((response) => response.json());
   } catch (error) {
     throw new Error("Something went wrong when creating the card.");
@@ -67,6 +70,7 @@ export const createNew = async (card: Partial<Card>): Promise<Card> => {
 
 export const modify = async (id: string, card: Partial<Card>) => {
   try {
+    console.log(JSON.stringify(getEditable(card)));
     return await fetch(`${url}${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

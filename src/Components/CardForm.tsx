@@ -4,6 +4,7 @@ import { Card } from "../API/cardApi";
 
 interface CardFormProps {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImage?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   onDelete?: () => void;
   card: Card;
@@ -59,6 +60,18 @@ const CardForm = (props: CardFormProps) => {
               value={props.card.email}
               onChange={props.handleChange}
               placeholder='Email address'
+              disabled={props.disabled}
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId='image'>
+            <Form.Label srOnly={srOnly}>Image</Form.Label>
+            <Form.File
+              label={props.card.imageName || "Select a photo"}
+              accept='image/*'
+              custom
+              onChange={props.handleImage}
               disabled={props.disabled}
             />
           </Form.Group>

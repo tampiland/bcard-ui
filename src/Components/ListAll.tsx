@@ -38,7 +38,7 @@ function ListAll({ match }: RouteComponentProps) {
           ))}
         </Row>
       );
-    else return <span>[No data loaded]</span>;
+    else return <p>[No data loaded]</p>;
   };
 
   return (

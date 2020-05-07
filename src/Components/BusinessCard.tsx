@@ -9,6 +9,17 @@ interface BusinessCardProps {
 
 const BusinessCard = (props: BusinessCardProps) => {
   const { card } = props;
+  let imageUrl = "";
+
+  if (card.image) {
+    const buffer = Buffer.from(card.image.data.data);
+    const arrayBuffer = Uint8Array.from(buffer);
+
+    const blob = new Blob([arrayBuffer], { type: card.image.contentType });
+    const urlCreator = window.URL || window.webkitURL;
+    imageUrl = urlCreator.createObjectURL(blob);
+  }
+
   return (
     <Container
       className='border p-1 bg-white'
@@ -22,7 +33,7 @@ const BusinessCard = (props: BusinessCardProps) => {
           </Col>
           <Col xs={4} className='p-0'>
             <img
-              src={defaultImage}
+              src={imageUrl || defaultImage}
               alt={`${card.name} ${card.surName}`}
               className='img-thumbnail'
             />
