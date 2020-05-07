@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Alert, Row, Col, Container } from "react-bootstrap";
+import { Alert, Button, Row, Col, Container } from "react-bootstrap";
 import { Card, fetchAll } from "../API/cardApi";
 import BusinessCard from "./BusinessCard";
 
@@ -27,13 +27,17 @@ function ListAll({ match }: RouteComponentProps) {
   const renderListOfCards = () => {
     if (!error)
       return (
-        <Row>
+        <Row className='justify-content-around'>
           {cards.map((card) => (
-            <Col key={card._id} className='p-1'>
-              <BusinessCard card={card} />{" "}
-              <Link to={`/edit/${card._id}`}>
-                <p className=''>Edit</p>
-              </Link>
+            <Col xs={"auto"} key={card._id} className='p-1'>
+              <BusinessCard card={card} />
+              <div className='text-right'>
+                <Link to={`/edit/${card._id}`}>
+                  <Button variant='secondary' size='sm' className='m-1 py-0'>
+                    Edit
+                  </Button>
+                </Link>
+              </div>
             </Col>
           ))}
         </Row>
