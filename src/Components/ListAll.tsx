@@ -51,7 +51,7 @@ function ListAll({ match }: RouteComponentProps) {
   return (
     <>
       {!!error && <Alert variant='danger'>{error}</Alert>}
-      <Container>
+      <Container className='p-0'>
         <h4>All the business cards</h4>
         <Container className='gray pt-3'>{renderListOfCards()}</Container>
       </Container>

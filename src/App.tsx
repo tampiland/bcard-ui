@@ -14,7 +14,7 @@ function App() {
     <Router>
       <div className='text-center'>
         <Navigation />
-        <div className='p-3'>
+        <div className='py-3'>
           <Switch>
             <Route path='/all' excact component={ListAll} />
             <Route path='/new' exact component={New} />
