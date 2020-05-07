@@ -4,7 +4,7 @@ Frontend for the bcard project. See `bcard-server` project for backend part.
 
 ## Installation
 
-After cloning, run:
+After cloning, go to folder `./bcard-ui` and run:
 
 ### `npm install`
 
