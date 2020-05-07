@@ -15,6 +15,21 @@ export const blankCard: Card = {
   email: "",
 };
 
+export const getImageUrl = (card: Card): string => {
+  if (card.image) {
+    try {
+      const buffer = Buffer.from(card.image.data.data);
+      const arrayBuffer = Uint8Array.from(buffer);
+      const blob = new Blob([arrayBuffer], { type: card.image.contentType });
+      const urlCreator = window.URL || window.webkitURL;
+      return urlCreator.createObjectURL(blob);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return "";
+};
+
 const getEditable = (card: Partial<Card>): Partial<Card> => {
   return (({ name, surName, telephone, email, image }) => ({
     name,

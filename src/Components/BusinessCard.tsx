@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "../API/cardApi";
+import { Card, getImageUrl } from "../API/cardApi";
 import defaultImage from "../default-person.png";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -9,19 +9,7 @@ interface BusinessCardProps {
 
 const BusinessCard = (props: BusinessCardProps) => {
   const { card } = props;
-  let imageUrl = "";
-
-  if (card.image) {
-    try {
-      const buffer = Buffer.from(card.image.data.data);
-      const arrayBuffer = Uint8Array.from(buffer);
-      const blob = new Blob([arrayBuffer], { type: card.image.contentType });
-      const urlCreator = window.URL || window.webkitURL;
-      imageUrl = urlCreator.createObjectURL(blob);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  let imageUrl = getImageUrl(card);
 
   return (
     <Container
