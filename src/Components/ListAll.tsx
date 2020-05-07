@@ -15,7 +15,7 @@ function ListAll({ match }: RouteComponentProps) {
   const getPeople = async () => {
     try {
       const newPeople = await fetchAll();
-      if (!newPeople.length) throw new Error("No Data");
+      if (!newPeople.length) throw new Error("The database is empty");
       setCards(newPeople);
       setError("");
     } catch (err) {
@@ -38,7 +38,14 @@ function ListAll({ match }: RouteComponentProps) {
           ))}
         </Row>
       );
-    else return <p>[No data loaded]</p>;
+    else
+      return (
+        <Row>
+          <Col>
+            <p>...</p>
+          </Col>
+        </Row>
+      );
   };
 
   return (

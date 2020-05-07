@@ -70,7 +70,6 @@ export const createNew = async (card: Partial<Card>): Promise<Card> => {
 
 export const modify = async (id: string, card: Partial<Card>) => {
   try {
-    console.log(JSON.stringify(getEditable(card)));
     return await fetch(`${url}${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
