@@ -44,9 +44,10 @@ function Edit({ match }: RouteComponentProps<MatchParams>) {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.id in card)
+    if (event.target.id in card) {
       setCard({ ...card, ...{ [event.target.id]: event.target.value } });
-    else
+      setEditedId(undefined);
+    } else
       console.error(
         `Specified key "${event.target.id}" not available for this object`
       );
