@@ -11,9 +11,10 @@ function New() {
   const [newId, setNewId] = useState<string | undefined>(undefined);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.id in card)
+    if (event.target.id in card) {
       setCard({ ...card, ...{ [event.target.id]: event.target.value } });
-    else console.error("Specified key not available for this object");
+      setNewId(undefined);
+    } else console.error("Specified key not available for this object");
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
